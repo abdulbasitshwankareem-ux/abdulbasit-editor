@@ -1,0 +1,8 @@
+{
+  "name": "Abdulbasit Editor",
+  "short_name": "Abdulbasit",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070709",
+  "theme_color": "#7928ca"
+}
