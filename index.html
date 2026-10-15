@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abdulbasit Editor — ئەپی دیزاین و دەستکاری</title>
+  <style>
+    :root {
+      --bg: #070709;
+      --card-bg: #121218;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --muted: #9494a0;
+      --primary-purple: #7928ca;
+      --primary-blue: #0070f3;
+      --primary-pink: #eb367f;
+      --accent-gold: #f5a623;
+    }
+    
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); padding-bottom: 90px; }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .logo-area { display: flex; align-items: center; gap: 10px; }
+    .app-logo {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #7928ca, #eb367f);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 20px; color: #fff;
+      box-shadow: 0 4px 15px rgba(121, 40, 202, 0.4);
+    }
+    .app-title { font-size: 18px; font-weight: bold; margin: 0; }
+    .app-sub { font-size: 11px; color: var(--muted); margin: 0; }
+    .settings-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+    /* Container */
+    .container { padding: 16px; }
+
+    /* Main Banner / Action Cards */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .hero-card {
+      padding: 16px 10px;
+      border-radius: 16px;
+      text-align: center;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    .hero-card:active { transform: scale(0.96); }
+    .hero-card.ai { background: linear-gradient(135deg, #5b21b6, #7c3aed); }
+    .hero-card.photo { background: linear-gradient(135deg, #1d4ed8, #2563eb); }
+    .hero-card.video { background: linear-gradient(135deg, #be185d, #e11d48); }
+    .hero-card h4 { font-size: 13px; margin: 8px 0 4px; }
+    .hero-card p { font-size: 10px; margin: 0; opacity: 0.8; }
+
+    /* Section Titles */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0 12px;
+    }
+    .section-title { font-size: 15px; font-weight: bold; color: #fff; }
+    .see-more { font-size: 12px; color: var(--muted); }
+
+    /* Templates Horizontal Scroll */
+    .templates-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .templates-scroll::-webkit-scrollbar { display: none; }
+    .template-item {
+      min-width: 110px; height: 130px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+    }
+    .template-item img { width: 100%; height: 80px; object-fit: cover; }
+    .template-item span { display: block; text-align: center; font-size: 11px; padding: 6px 4px; color: var(--muted); }
+
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .tool-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .tool-box:hover { border-color: #7c3aed; background: #181822; }
+    .tool-icon { font-size: 20px; margin-bottom: 6px; }
+    .tool-name { font-size: 11px; color: var(--muted); margin: 0; }
+
+    /* Upload & Preview Section */
+    .upload-card {
+      background: var(--card-bg);
+      border: 2px dashed var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .upload-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #7928ca, #eb367f);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .file-input { display: none; }
+    .preview-box { width: 100%; max-height: 250px; margin-top: 15px; border-radius: 10px; overflow: hidden; display: none; }
+    .preview-box img, .preview-box video { width: 100%; max-height: 250px; object-fit: contain; }
+
+    /* Bottom Navigation Bar */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(18, 18, 24, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      z-index: 1000;
+    }
+    .nav-item {
+      background: none; border: none;
+      color: var(--muted);
+      display: flex; flex-direction: column; align-items: center;
+      font-size: 10px; cursor: pointer; gap: 4px;
+    }
+    .nav-item.active { color: #eb367f; }
+    .nav-item span.icon { font-size: 18px; }
+    .fab-btn {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, #7928ca, #eb367f);
+      border-radius: 50%;
+      border: none; color: #fff; font-size: 24px;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: -20px;
+      box-shadow: 0 4px 15px rgba(235, 54, 127, 0.5);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-area">
+      <div class="app-logo">A</div>
+      <div>
+        <h1 class="app-title">Abdulbasit Editor</h1>
+        <p class="app-sub">هەموو شتێک بۆ دیزاین و دەستکاری</p>
+      </div>
+    </div>
+    <div class="settings-btn" onclick="alert('ڕێکخستنەکان')">⚙️</div>
+  </header>
+
+  <div class="container">
+    
+    <!-- Top Action Cards -->
+    <div class="hero-grid">
+      <div class="hero-card ai" onclick="triggerAction('دیزاینی AI')">
+        <span style="font-size:22px">🤖</span>
+        <h4>دیزاینی AI</h4>
+        <p>دروستکردنی وێنە</p>
+      </div>
+      <div class="hero-card photo" onclick="triggerAction('دەستکاری وێنە')">
+        <span style="font-size:22px">🖼️</span>
+        <h4>دەستکاری وێنە</h4>
+        <p>هەموو ئامرازەکان</p>
+      </div>
+      <div class="hero-card video" onclick="triggerAction('دەستکاری ڤیدیۆ')">
+        <span style="font-size:22px">🎬</span>
+        <h4>دەستکاری ڤیدیۆ</h4>
+        <p>مۆنتاژ و فلتەر</p>
+      </div>
+    </div>
+
+    <!-- Templates Section -->
+    <div class="section-header">
+      <span class="section-title">قالبەکان</span>
+      <span class="see-more">بینینی هەمووی ›</span>
+    </div>
+    <div class="templates-scroll">
+      <div class="template-item" onclick="alert('قالب هەڵبژێردرا')">
+        <div style="background:#2a2a35;height:80px;display:flex;align-items:center;justify-content:center;font-size:24px">🏔️</div>
+        <span>شاخ و سروشت</span>
+      </div>
+      <div class="template-item">
+        <div style="background:#3a2a25;height:80px;display:flex;align-items:center;justify-content:center;font-size:24px">💼</div>
+        <span>بازرگانی</span>
+      </div>
+      <div class="template-item">
+        <div style="background:#25323a;height:80px;display:flex;align-items:center;justify-content:center;font-size:24px">📱</div>
+        <span>سۆشیال میدیا</span>
+      </div>
+      <div class="template-item">
+        <div style="background:#3a2535;height:80px;display:flex;align-items:center;justify-content:center;font-size:24px">✨</div>
+        <span>لۆگۆ و براند</span>
+      </div>
+    </div>
+
+    <!-- Tools Section -->
+    <div class="section-header">
+      <span class="section-title">ئامرازەکان</span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-box" onclick="triggerAction('بڕین')">
+        <div class="tool-icon">📐</div>
+        <p class="tool-name">بڕین</p>
+      </div>
+      <div class="tool-box" onclick="triggerAction('رەنگ و رووناکی')">
+        <div class="tool-icon">🎨</div>
+        <p class="tool-name">ڕەنگ</p>
+      </div>
+      <div class="tool-box" onclick="triggerAction('فیلتەر')">
+        <div class="tool-icon">✨</div>
+        <p class="tool-name">فیلتەر</p>
+      </div>
+      <div class="tool-box" onclick="triggerAction('لابردنی پەشی')">
+        <div class="tool-icon">👤</div>
+        <p class="tool-name">پەشی</p>
+      </div>
+      <div class="tool-box" onclick="triggerAction('تێکست و فۆنت')">
+        <div class="tool-icon">Aa</div>
+        <p class="tool-name">تێکست</p>
+      </div>
+      <div class="tool-box" onclick="triggerAction('ستیکەر')">
+        <div class="tool-icon">😊</div>
+        <p class="tool-name">ستیکەر</p>
+      </div>
+      <div class="tool-box" onclick="triggerAction('فۆرمات')">
+        <div class="tool-icon">🔄</div>
+        <p class="tool-name">فۆرمات</p>
+      </div>
+      <div class="tool-box" onclick="triggerAction('گۆڕانکاری')">
+        <div class="tool-icon">⚡</div>
+        <p class="tool-name">گۆڕانکاری</p>
+      </div>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-card">
+      <p style="margin:0 0 10px;font-size:13px;color:var(--muted)">فایلی خۆت بۆ دەستکاری هەڵبژێرە</p>
+      <label class="upload-btn" for="mediaInput">📁 هەڵبژاردنی وێنە / ڤیدیۆ</label>
+      <input type="file" id="mediaInput" class="file-input" accept="image/*,video/*">
+      
+      <div class="preview-box" id="previewContainer"></div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button class="nav-item active">
+      <span class="icon">🏠</span>
+      <span>مال</span>
+    </button>
+    <button class="nav-item" onclick="alert('پڕۆژەکان')">
+      <span class="icon">📁</span>
+      <span>پڕۆژەکان</span>
+    </button>
+    <button class="fab-btn" onclick="document.getElementById('mediaInput').click()">+</button>
+    <button class="nav-item" onclick="alert('قالبەکان')">
+      <span class="icon">🎨</span>
+      <span>قالبەکان</span>
+    </button>
+    <button class="nav-item" onclick="alert('مۆدەکان')">
+      <span class="icon">👤</span>
+      <span>مۆدەکان</span>
+    </button>
+  </nav>
+
+  <script>
+    const mediaInput = document.getElementById('mediaInput');
+    const previewContainer = document.getElementById('previewContainer');
+
+    mediaInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      previewContainer.innerHTML = '';
+      previewContainer.style.display = 'block';
+      const fileURL = URL.createObjectURL(file);
+
+      if (file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = fileURL;
+        previewContainer.appendChild(img);
+      } else if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.src = fileURL;
+        video.controls = true;
+        previewContainer.appendChild(video);
+      }
+    });
+
+    function triggerAction(name) {
+      alert('ئامرازی (' + name + ') چالاک کرا!');
+    }
+  </script>
+
+</body>
+</html>
