@@ -4,5 +4,12 @@
   "start_url": "./",
   "display": "standalone",
   "background_color": "#070709",
-  "theme_color": "#7928ca"
+  "theme_color": "#7928ca",
+  "icons": [
+    {
+      "src": "https://www.pwabuilder.com/assets/images/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
