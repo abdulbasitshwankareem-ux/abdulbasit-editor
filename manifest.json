@@ -3,6 +3,7 @@
   "short_name": "Abdulbasit",
   "description": "ئەپی زیرەکی دەستکاری وێنە و ڤیدیۆ بە AI",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#070709",
   "theme_color": "#7928ca",
@@ -10,12 +11,8 @@
     {
       "src": "https://www.pwabuilder.com/assets/images/icon_512.png",
       "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "https://www.pwabuilder.com/assets/images/icon_512.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
