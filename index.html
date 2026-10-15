@@ -2,193 +2,1340 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdulbasit Editor – ئەپی دیزاین و دەستکاری</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Abdulbasit Editor</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#7928ca">
+    <meta name="theme-color" content="#08090f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #070709;
-            --card-bg: #121218;
-            --card-border: rgba(255, 255, 255, 0.08);
-            --text: #ffffff;
-            --muted: #9494a0;
-            --primary-purple: #7928ca;
-            --primary-blue: #0070f3;
-            --primary-pink: #eb367f;
-            --accent-gold: #f5a623;
+            --bg-dark: #08090f;
+            --bg-card: #121521;
+            --bg-card-hover: #191d2e;
+            --border-subtle: rgba(255, 255, 255, 0.07);
+            --text-main: #ffffff;
+            --text-muted: #8b92a8;
+            --purple-grad: linear-gradient(145deg, #8b3dff 0%, #5e17eb 100%);
+            --blue-grad: linear-gradient(145deg, #1e90ff 0%, #005bea 100%);
+            --red-grad: linear-gradient(145deg, #ff416c 0%, #e11d48 100%);
+            --brand-grad: linear-gradient(135deg, #00f2fe 0%, #4facfe 25%, #8b3dff 55%, #ff416c 80%, #f5a623 100%);
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
+
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100dvh;
+            width: 100vw;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            padding: 16px;
+            background-image: 
+                radial-gradient(circle at 85% 10%, rgba(139, 61, 255, 0.14) 0%, transparent 40%),
+                radial-gradient(circle at 15% 80%, rgba(30, 144, 255, 0.1) 0%, transparent 40%);
         }
-        header {
-            text-align: center;
-            padding: 24px 0;
-            border-bottom: 1px solid var(--card-border);
-            margin-bottom: 24px;
+
+        /* Top App Header */
+        .top-bar {
+            height: 62px;
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            z-index: 20;
         }
-        header h1 {
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
+
+        .brand-wrap {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .logo-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #0d0f18;
+            border: 1.5px solid rgba(139, 61, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(139, 61, 255, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-title {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+        }
+
+        .brand-title .name-main {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.2px;
+        }
+
+        .brand-title .name-sub {
+            font-size: 0.92rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00f2fe, #8b3dff, #ff416c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
         }
-        header p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            width: 100%;
-            flex: 1;
+
+        .settings-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: #cbd5e1;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-        }
-        .upload-section {
-            text-align: center;
-            border: 2px dashed rgba(121, 40, 202, 0.4);
-            border-radius: 12px;
-            padding: 24px;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.2s;
         }
-        .upload-section:hover {
-            border-color: var(--primary-purple);
-            background-color: rgba(121, 40, 202, 0.05);
+
+        .settings-btn:active {
+            transform: scale(0.92);
         }
-        .upload-section input {
+
+        /* Main Scrollable Area */
+        .main-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 6px 16px 95px;
+            scrollbar-width: none;
+        }
+
+        .main-scroll::-webkit-scrollbar {
             display: none;
         }
-        .upload-btn {
-            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 12px;
-            display: inline-block;
+
+        .screen-view {
+            display: none;
+            animation: fadeIn 0.22s ease;
         }
+
+        .screen-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 3 Hero Cards */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .hero-card {
+            border-radius: 20px;
+            padding: 16px 8px 14px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .hero-card:active {
+            transform: scale(0.95);
+        }
+
+        .hero-card.ai-card {
+            background: var(--purple-grad);
+            box-shadow: 0 8px 22px rgba(139, 61, 255, 0.35);
+        }
+
+        .hero-card.photo-card {
+            background: var(--blue-grad);
+            box-shadow: 0 8px 22px rgba(0, 91, 234, 0.35);
+        }
+
+        .hero-card.video-card {
+            background: var(--red-grad);
+            box-shadow: 0 8px 22px rgba(225, 29, 72, 0.35);
+        }
+
+        .hero-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-card h3 {
+            font-size: 0.85rem;
+            font-weight: 800;
+            margin-bottom: 3px;
+            white-space: nowrap;
+        }
+
+        .hero-card p {
+            font-size: 0.63rem;
+            opacity: 0.88;
+            line-height: 1.25;
+        }
+
+        /* Section Titles */
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 0 2px;
+        }
+
+        .section-head h2 {
+            font-size: 1.02rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .section-head .more-arrow {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Templates Horizontal Scroll */
+        .templates-row {
+            display: flex;
+            gap: 11px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+        }
+
+        .templates-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .template-item {
+            width: 102px;
+            flex-shrink: 0;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .template-item:active {
+            transform: scale(0.95);
+        }
+
+        .template-thumb {
+            width: 102px;
+            height: 122px;
+            border-radius: 16px;
+            margin-bottom: 7px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .template-item span {
+            font-size: 0.72rem;
+            color: #d1d5db;
+            font-weight: 600;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Custom Visuals for the 4 Templates */
+        .thumb-social {
+            background: linear-gradient(180deg, #ff7e5f 0%, #feb47b 55%, #19162b 100%);
+        }
+        .thumb-social::after {
+            content: '🌅';
+            font-size: 2.2rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+        }
+
+        .thumb-business {
+            background: linear-gradient(135deg, #ff0844 0%, #ffb199 50%, #00b4db 100%);
+            padding: 8px;
+        }
+        .poster-badge {
+            background: rgba(0, 0, 0, 0.65);
+            color: #ffd700;
+            font-weight: 900;
+            font-size: 0.72rem;
+            padding: 6px 8px;
+            border-radius: 8px;
+            border: 1px solid #ffd700;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .thumb-logo {
+            background: #10131f;
+        }
+
+        .thumb-nature {
+            background: linear-gradient(180deg, #3a7bd5 0%, #89f7fe 50%, #11998e 52%, #38ef7d 100%);
+        }
+        .thumb-nature::after {
+            content: '🏔️';
+            font-size: 2.2rem;
+        }
+
+        /* 8 Tools Grid (4x2) */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 16px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
         }
-        .tool-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--card-border);
-            color: var(--text);
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
+
+        .tool-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 13px 6px 11px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
             cursor: pointer;
             transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .tool-box:active {
+            transform: scale(0.93);
+            background: var(--bg-card-hover);
+            border-color: #8b3dff;
+        }
+
+        .tool-icon-wrap {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .tool-box span {
+            font-size: 0.7rem;
+            color: #e2e8f0;
+            font-weight: 600;
             text-align: center;
+            white-space: nowrap;
         }
-        .tool-btn:hover {
-            background: rgba(121, 40, 202, 0.15);
-            border-color: var(--primary-purple);
+
+        /* Promo Banner inside Home */
+        .free-banner {
+            margin-top: 8px;
+            background: linear-gradient(90deg, rgba(139, 61, 255, 0.16), rgba(0, 242, 254, 0.12));
+            border: 1px solid rgba(139, 61, 255, 0.35);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        #previewContainer {
-            margin-top: 16px;
-            text-align: center;
+
+        .free-banner-text h4 {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        #previewContainer img, #previewContainer video {
+
+        .free-banner-text p {
+            font-size: 0.68rem;
+            color: #a5b4fc;
+        }
+
+        .badge-100 {
+            background: #0070f3;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        /* Editor & AI Studio Views */
+        .studio-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .back-pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: #fff;
+            padding: 7px 13px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .save-pill {
+            background: var(--purple-grad);
+            border: none;
+            color: #fff;
+            padding: 7px 16px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(139, 61, 255, 0.4);
+        }
+
+        .canvas-stage {
+            width: 100%;
+            height: 300px;
+            background: #0c0e17;
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+
+        #editorCanvas {
             max-width: 100%;
-            max-height: 250px;
-            border-radius: 8px;
-            margin-top: 10px;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            transition: filter 0.15s, transform 0.2s;
         }
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            color: var(--muted);
+
+        #editorVideo {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+            border-radius: 10px;
+        }
+
+        .stage-floating-top {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .stage-chip {
+            pointer-events: auto;
+            background: rgba(12, 14, 23, 0.82);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .editor-subpanel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .subpanel-title {
             font-size: 0.8rem;
-            border-top: 1px solid var(--card-border);
-            margin-top: 24px;
+            font-weight: 700;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .slider-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .slider-line label {
+            width: 78px;
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .slider-line input[type="range"] {
+            flex: 1;
+            accent-color: #8b3dff;
+            height: 5px;
+        }
+
+        .chips-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+        }
+
+        .chips-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .action-chip {
+            background: #1a1e2e;
+            border: 1px solid var(--border-subtle);
+            color: #fff;
+            padding: 8px 13px;
+            border-radius: 12px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .action-chip.active, .action-chip:active {
+            background: rgba(139, 61, 255, 0.25);
+            border-color: #8b3dff;
+        }
+
+        /* AI Generator Box */
+        .ai-prompt-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(139, 61, 255, 0.35);
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+
+        .ai-prompt-box textarea {
+            width: 100%;
+            height: 75px;
+            background: #0b0d15;
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 10px;
+            color: #fff;
+            font-size: 0.82rem;
+            resize: none;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        .ai-generate-btn {
+            width: 100%;
+            background: var(--purple-grad);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 13px;
+            font-size: 0.86rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 6px 20px rgba(139, 61, 255, 0.4);
+        }
+
+        /* Video Timeline Strip */
+        .timeline-strip {
+            display: flex;
+            gap: 4px;
+            background: #0b0d15;
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            overflow-x: auto;
+            margin-top: 8px;
+        }
+
+        .frame-box {
+            width: 48px;
+            height: 36px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #1e90ff, #8b3dff);
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Bottom Navigation Bar (5 Items with Center +) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            background: rgba(11, 13, 21, 0.94);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-subtle);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            align-items: center;
+            padding: 0 6px;
+            z-index: 40;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+            height: 100%;
+            transition: 0.2s;
+        }
+
+        .nav-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .nav-btn span {
+            font-size: 0.68rem;
+            font-weight: 600;
+        }
+
+        .nav-btn.active {
+            color: #1e90ff;
+        }
+
+        .nav-plus-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-plus-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #9b51e0 0%, #6d28d9 100%);
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 1.7rem;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(139, 61, 255, 0.55);
+            transform: translateY(-8px);
+            transition: transform 0.2s;
+        }
+
+        .nav-plus-btn:active {
+            transform: translateY(-8px) scale(0.92);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            top: 72px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: rgba(18, 21, 33, 0.96);
+            border: 1px solid #8b3dff;
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.25s ease;
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Abdulbasit Editor</h1>
-        <p>ئەپی زیرەکی دەستکاری وێنە و ڤیدیۆ بە AI</p>
+
+    <!-- Hidden File Inputs -->
+    <input type="file" id="filePicker" accept="image/*,video/*" style="display:none">
+
+    <!-- Top Header -->
+    <header class="top-bar">
+        <div class="brand-wrap" onclick="showScreen('homeScreen')">
+            <!-- Custom 'A' Logo with Pen inside -->
+            <div class="logo-box">
+                <svg width="30" height="30" viewBox="0 0 64 64" fill="none">
+                    <defs>
+                        <linearGradient id="aGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#00f2fe"/>
+                            <stop offset="35%" stop-color="#4facfe"/>
+                            <stop offset="70%" stop-color="#b721ff"/>
+                            <stop offset="100%" stop-color="#ff7e5f"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M32 8L10 56H22L27 44H37L42 56H54L32 8Z" fill="url(#aGrad)"/>
+                    <path d="M24 38L44 18L49 23L29 43L22 45L24 38Z" fill="#ffffff"/>
+                </svg>
+            </div>
+            <div class="brand-title">
+                <span class="name-main">Abdulbasit</span>
+                <span class="name-sub">Editor</span>
+            </div>
+        </div>
+        <button class="settings-btn" onclick="showScreen('profileScreen')" title="ڕێکخستنەکان">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </button>
     </header>
 
-    <div class="container">
-        <div class="card">
-            <div class="upload-section" onclick="document.getElementById('mediaInput').click()">
-                <p>📷 وێنە یان ڤیدیۆ لێرە باربکە بۆ دەستکاری</p>
-                <button class="upload-btn">هەڵبژاردنی فایل</button>
-                <input type="file" id="mediaInput" accept="image/*,video/*">
-            </div>
-            <div id="previewContainer"></div>
-        </div>
+    <!-- Toast Notification -->
+    <div id="toast">✨ ئامادەیە</div>
 
-        <div class="card">
-            <h3 style="margin-bottom: 12px; font-size: 1rem;">ئامرازە زیرەکەکان (AI Tools)</h3>
+    <!-- Main Scroll Content -->
+    <main class="main-scroll">
+
+        <!-- ================= HOME SCREEN (ماڵ) ================= -->
+        <div id="homeScreen" class="screen-view active">
+            <!-- 3 Hero Cards -->
+            <div class="hero-grid">
+                <!-- Card 1: AI Design -->
+                <div class="hero-card ai-card" onclick="showScreen('aiScreen')">
+                    <div class="hero-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04Z"/>
+                            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04Z"/>
+                        </svg>
+                    </div>
+                    <h3>دیزاین AI</h3>
+                    <p>دروستکردنی وێنە بە AI</p>
+                </div>
+
+                <!-- Card 2: Photo Editing -->
+                <div class="hero-card photo-card" onclick="openEditorWithMode('photo')">
+                    <div class="hero-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="3" ry="3"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </div>
+                    <h3>دەستکاری وێنە</h3>
+                    <p>هەموو ئامرازەکانی وێنە</p>
+                </div>
+
+                <!-- Card 3: Video Editing -->
+                <div class="hero-card video-card" onclick="openEditorWithMode('video')">
+                    <div class="hero-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <rect x="2" y="5" width="14" height="14" rx="2" ry="2"/>
+                            <polygon points="22 7 16 12 22 17 22 7"/>
+                        </svg>
+                    </div>
+                    <h3>دەستکاری ڤیدیۆ</h3>
+                    <p>هەموو ئامرازەکانی ڤیدیۆ</p>
+                </div>
+            </div>
+
+            <!-- Templates Section (قاڵبەکان) -->
+            <div class="section-head">
+                <h2>قاڵبەکان</h2>
+                <span class="more-arrow" onclick="showScreen('templatesScreen')">‹</span>
+            </div>
+
+            <div class="templates-row">
+                <div class="template-item" onclick="loadTemplate('social')">
+                    <div class="template-thumb thumb-social"></div>
+                    <span>قاڵبی سۆشیال</span>
+                </div>
+
+                <div class="template-item" onclick="loadTemplate('business')">
+                    <div class="template-thumb thumb-business">
+                        <div class="poster-badge">SUPER<br>DESIGN<br>2026</div>
+                    </div>
+                    <span>قاڵبی بازرگانی</span>
+                </div>
+
+                <div class="template-item" onclick="loadTemplate('logo')">
+                    <div class="template-thumb thumb-logo">
+                        <svg width="46" height="46" viewBox="0 0 64 64" fill="none">
+                            <polygon points="32,6 56,19 56,45 32,58 8,45 8,19" stroke="#00f2fe" stroke-width="4" fill="rgba(139,61,255,0.25)"/>
+                            <text x="32" y="37" text-anchor="middle" fill="#fff" font-size="12" font-weight="900">LOGO</text>
+                        </svg>
+                    </div>
+                    <span>قاڵبی لۆگۆ</span>
+                </div>
+
+                <div class="template-item" onclick="loadTemplate('nature')">
+                    <div class="template-thumb thumb-nature"></div>
+                    <span>قاڵبی شاخ و تەبیعەت</span>
+                </div>
+            </div>
+
+            <!-- Tools Section (ئامرازەکان - 4x2 Grid) -->
+            <div class="section-head">
+                <h2>ئامرازەکان</h2>
+                <span class="more-arrow" onclick="openEditorWithMode('photo')">‹</span>
+            </div>
+
             <div class="tools-grid">
-                <button class="tool-btn" onclick="triggerAction('باشترکردنی کوالێتی AI')">✨ باشترکردنی کوالێتی</button>
-                <button class="tool-btn" onclick="triggerAction('لابردنی پاشبنەما')">🖼️ لابردنی پاشبنەما</button>
-                <button class="tool-btn" onclick="triggerAction('فلتەری ڕەنگاوڕەنگ')">🎨 فلتەری پڕۆفیشناڵ</button>
-                <button class="tool-btn" onclick="triggerAction('مۆنتاری خێرای AI')">⚡ مۆنتاری خێرا</button>
+                <div class="tool-box" onclick="openTool('crop')">
+                    <div class="tool-icon-wrap">✂️</div>
+                    <span>بڕین</span>
+                </div>
+                <div class="tool-box" onclick="openTool('color')">
+                    <div class="tool-icon-wrap">🎨</div>
+                    <span>ڕەنگ و ڕووناکی</span>
+                </div>
+                <div class="tool-box" onclick="openTool('filter')">
+                    <div class="tool-icon-wrap">🌈</div>
+                    <span>فلتەر</span>
+                </div>
+                <div class="tool-box" onclick="openTool('brush')">
+                    <div class="tool-icon-wrap">🖌️</div>
+                    <span>خۆڵکە</span>
+                </div>
+                <div class="tool-box" onclick="openTool('text')">
+                    <div class="tool-icon-wrap">🇹</div>
+                    <span>تێکست</span>
+                </div>
+                <div class="tool-box" onclick="openTool('sticker')">
+                    <div class="tool-icon-wrap">😊</div>
+                    <span>ستیکەر</span>
+                </div>
+                <div class="tool-box" onclick="openTool('format')">
+                    <div class="tool-icon-wrap">📐</div>
+                    <span>فۆرمات</span>
+                </div>
+                <div class="tool-box" onclick="openTool('bg')">
+                    <div class="tool-icon-wrap">📂</div>
+                    <span>پێشەوە</span>
+                </div>
+            </div>
+
+            <!-- 100% Free Badge Banner -->
+            <div class="free-banner">
+                <div class="free-banner-text">
+                    <h4>👑 هەموو شتێک بەخۆڕایی</h4>
+                    <p>بەبێ هیچ کریدت و سەرئێشەیەک لە یەک شوێن!</p>
+                </div>
+                <span class="badge-100">100% خۆڕایی</span>
             </div>
         </div>
-    </div>
 
-    <footer>
-        <p>© 2026 Abdulbasit Shwan Kareem. All rights reserved.</p>
-    </footer>
+        <!-- ================= AI DESIGN SCREEN (دیزاین AI) ================= -->
+        <div id="aiScreen" class="screen-view">
+            <div class="studio-header">
+                <button class="back-pill" onclick="showScreen('homeScreen')">➔ گەڕانەوە</button>
+                <h3 style="font-size:0.95rem; font-weight:800;">✨ ستۆدیۆی دیزاینی AI</h3>
+                <button class="save-pill" onclick="sendAIToEditor()">دەستکاری</button>
+            </div>
+
+            <div class="ai-prompt-box">
+                <textarea id="aiPrompt" placeholder="وەسفی ئەو وێنەیە بنووسە کە دەتەوێت AI بۆت دروست بکات... (نموونە: قەڵایەکی خەیاڵی لەسەر چیا لە کاتی خۆرئاوابوون)"></textarea>
+                <div class="chips-scroll" style="margin-bottom:10px;">
+                    <span class="action-chip" onclick="setPrompt('A majestic fantasy castle in the clouds at sunset, vibrant digital art, 8k')">🏰 قەڵای خەیاڵی</span>
+                    <span class="action-chip" onclick="setPrompt('Scenic mountain lake reflection, lush pine forest, photorealistic, 8k')">🏔️ شاخ و سروشت</span>
+                    <span class="action-chip" onclick="setPrompt('Modern minimalist 3D neon gradient letter A logo, dark background')">💎 دیزاینی لۆگۆ</span>
+                    <span class="action-chip" onclick="setPrompt('Cyberpunk Kurdish warrior portrait, neon lighting, ultra detailed')">⚡ پۆرترێتی سینەمایی</span>
+                </div>
+                <button class="ai-generate-btn" onclick="generateAIImage()">
+                    <span>✨ دروستکردنی وێنە بە AI (بەخۆڕایی)</span>
+                </button>
+            </div>
+
+            <div class="canvas-stage">
+                <img id="aiResultImg" src="https://image.pollinations.ai/prompt/Majestic%20fantasy%20castle%20sunset%20vibrant%20digital%20art?width=720&height=720&nologo=true" style="max-width:100%; max-height:100%; border-radius:12px;" alt="AI Output">
+            </div>
+        </div>
+
+        <!-- ================= PHOTO & VIDEO EDITOR SCREEN ================= -->
+        <div id="editorScreen" class="screen-view">
+            <div class="studio-header">
+                <button class="back-pill" onclick="showScreen('homeScreen')">➔ ماڵەوە</button>
+                <button class="back-pill" onclick="document.getElementById('filePicker').click()">📁 هەڵبژاردنی فایل</button>
+                <button class="save-pill" onclick="downloadEditedMedia()">پاشەکەوت ⬇</button>
+            </div>
+
+            <!-- Canvas / Video Stage -->
+            <div class="canvas-stage">
+                <div class="stage-floating-top">
+                    <span class="stage-chip" onpointerdown="previewOriginal(true)" onpointerup="previewOriginal(false)">👁️ پێش / پاش</span>
+                    <span class="stage-chip" onclick="resetCanvas()">↺ ڕێکخستنەوە</span>
+                </div>
+                <canvas id="editorCanvas" width="700" height="700"></canvas>
+                <video id="editorVideo" controls playsinline></video>
+            </div>
+
+            <!-- Video Timeline (Visible in Video Mode) -->
+            <div id="videoTimelineWrap" class="editor-subpanel" style="display:none;">
+                <div class="subpanel-title">
+                    <span>🎬 شریتی مۆنتاژی ڤیدیۆ و گۆڕانکاری (Transitions)</span>
+                </div>
+                <div class="chips-scroll">
+                    <button class="action-chip" onclick="setVideoSpeed(1)">خێرایی 1x</button>
+                    <button class="action-chip" onclick="setVideoSpeed(1.5)">خێرا 1.5x</button>
+                    <button class="action-chip" onclick="setVideoSpeed(0.5)">خاو 0.5x (Slow-Mo)</button>
+                    <button class="action-chip" onclick="applyQuickFilter('cinema')">🎬 ڕەنگی سینەمایی</button>
+                </div>
+                <div class="timeline-strip">
+                    <div class="frame-box"></div>
+                    <div class="frame-box"></div>
+                    <div class="frame-box"></div>
+                    <div class="frame-box"></div>
+                    <div class="frame-box"></div>
+                    <div class="frame-box"></div>
+                </div>
+            </div>
+
+            <!-- Dynamic Tool Controls -->
+            <div class="editor-subpanel">
+                <div class="subpanel-title">
+                    <span id="activeToolTitle">🎨 ڕەنگ و ڕووناکی و فلتەرەکان</span>
+                    <span style="color:#00f2fe; font-size:0.72rem;">ڕاستەوخۆ</span>
+                </div>
+
+                <!-- Color Sliders -->
+                <div id="panelColor">
+                    <div class="slider-line">
+                        <label>ڕووناکی</label>
+                        <input type="range" id="sBright" min="50" max="150" value="100" oninput="renderCanvas()">
+                    </div>
+                    <div class="slider-line">
+                        <label>کۆنتراست</label>
+                        <input type="range" id="sContrast" min="50" max="160" value="100" oninput="renderCanvas()">
+                    </div>
+                    <div class="slider-line">
+                        <label>تێری ڕەنگ</label>
+                        <input type="range" id="sSat" min="0" max="220" value="100" oninput="renderCanvas()">
+                    </div>
+                </div>
+
+                <!-- Text & Kurdish Fonts Input -->
+                <div id="panelText" style="display:none; margin-top:8px;">
+                    <div style="display:flex; gap:6px; margin-bottom:8px;">
+                        <input type="text" id="canvasTextInput" placeholder="نووسین بە فۆنتی کوردی..." style="flex:1; background:#0b0d15; border:1px solid var(--border-subtle); color:#fff; padding:8px 12px; border-radius:10px; outline:none;" oninput="renderCanvas()">
+                        <input type="color" id="canvasTextColor" value="#ffffff" style="width:40px; height:38px; border:none; background:none;" oninput="renderCanvas()">
+                    </div>
+                </div>
+
+                <!-- Quick Tool Switching Bar -->
+                <div class="chips-scroll" style="margin-top:8px;">
+                    <button class="action-chip" onclick="applyQuickFilter('normal')">ئۆرجیناڵ</button>
+                    <button class="action-chip" onclick="applyQuickFilter('hdr')">✨ باشترکردنی AI</button>
+                    <button class="action-chip" onclick="applyQuickFilter('warm')">🌅 گەرم و زێڕین</button>
+                    <button class="action-chip" onclick="applyQuickFilter('cyber')">🔮 نایۆن و سایبەر</button>
+                    <button class="action-chip" onclick="applyQuickFilter('bw')">🖤 ڕەش و سپی</button>
+                    <button class="action-chip" onclick="toggleTextPanel()">🇹 زیادکردنی دەق</button>
+                    <button class="action-chip" onclick="addSticker('🔥')">🔥 ستیکەر</button>
+                    <button class="action-chip" onclick="addSticker('👑')">👑 تاج</button>
+                    <button class="action-chip" onclick="rotateImage()">🔄 سووڕاندن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TEMPLATES & PROJECTS SCREEN ================= -->
+        <div id="templatesScreen" class="screen-view">
+            <div class="section-head">
+                <h2>هەموو قاڵب و پڕۆژە ئامادەکان</h2>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;">
+                <div class="editor-subpanel" onclick="loadTemplate('social')" style="cursor:pointer; text-align:center;">
+                    <div class="template-thumb thumb-social" style="width:100%; height:130px;"></div>
+                    <h4>قاڵبی سۆشیال میدیا</h4>
+                    <p style="font-size:0.7rem; color:var(--text-muted);">ئامادەکراو بۆ ئینستاگرام و تیکتۆک</p>
+                </div>
+                <div class="editor-subpanel" onclick="loadTemplate('business')" style="cursor:pointer; text-align:center;">
+                    <div class="template-thumb thumb-business" style="width:100%; height:130px;"><div class="poster-badge">BUSINESS<br>POSTER</div></div>
+                    <h4>قاڵبی بازرگانی</h4>
+                    <p style="font-size:0.7rem; color:var(--text-muted);">بۆ ڕیکلام و براندینگ</p>
+                </div>
+                <div class="editor-subpanel" onclick="loadTemplate('logo')" style="cursor:pointer; text-align:center;">
+                    <div class="template-thumb thumb-logo" style="width:100%; height:130px;"><span style="font-size:2rem;">💎</span></div>
+                    <h4>قاڵبی لۆگۆ</h4>
+                    <p style="font-size:0.7rem; color:var(--text-muted);">ناسنامەی بازرگانی مۆدێرن</p>
+                </div>
+                <div class="editor-subpanel" onclick="loadTemplate('nature')" style="cursor:pointer; text-align:center;">
+                    <div class="template-thumb thumb-nature" style="width:100%; height:130px;"></div>
+                    <h4>قاڵبی شاخ و تەبیعەت</h4>
+                    <p style="font-size:0.7rem; color:var(--text-muted);">دیمەنی سروشتی جوان</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PROFILE / SETTINGS SCREEN ================= -->
+        <div id="profileScreen" class="screen-view">
+            <div class="editor-subpanel" style="text-align:center; padding:24px 16px;">
+                <div class="logo-box" style="width:64px; height:64px; margin:0 auto 12px;">
+                    <span style="font-size:1.8rem; font-weight:900; background:var(--brand-grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">A</span>
+                </div>
+                <h3>Abdulbasit Shwan Kareem</h3>
+                <p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">UI/UX Designer & Digital Creator</p>
+                <div style="margin-top:16px; display:flex; justify-content:center; gap:8px;">
+                    <span class="badge-100">وەشانی 2026 PRO</span>
+                    <span class="badge-100" style="background:#8b3dff;">Honor X9d Optimized</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" onclick="navClick('homeScreen', this)">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>ماڵ</span>
+        </button>
+
+        <button class="nav-btn" onclick="navClick('editorScreen', this)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>پڕۆژەکان</span>
+        </button>
+
+        <div class="nav-plus-wrap">
+            <button class="nav-plus-btn" onclick="document.getElementById('filePicker').click()">+</button>
+        </div>
+
+        <button class="nav-btn" onclick="navClick('templatesScreen', this)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>قاڵبەکان</span>
+        </button>
+
+        <button class="nav-btn" onclick="navClick('profileScreen', this)">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>خواردەکان</span>
+        </button>
+    </nav>
 
     <script>
-        const mediaInput = document.getElementById('mediaInput');
-        const previewContainer = document.getElementById('previewContainer');
+        const canvas = document.getElementById('editorCanvas');
+        const ctx = canvas.getContext('2d');
+        const videoEl = document.getElementById('editorVideo');
+        const filePicker = document.getElementById('filePicker');
+        const toast = document.getElementById('toast');
 
-        mediaInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
+        let baseImage = new Image();
+        baseImage.crossOrigin = "anonymous";
+        let currentSticker = "";
+        let rotationAngle = 0;
+        let isVideoMode = false;
+
+        function notify(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(window.tTimer);
+            window.tTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function navClick(screenId, btn) {
+            showScreen(screenId);
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // Initialize Default Starter Graphic on Canvas
+        function drawStarterTemplate(type = 'default') {
+            isVideoMode = false;
+            videoEl.style.display = 'none';
+            videoEl.pause();
+            canvas.style.display = 'block';
+            document.getElementById('videoTimelineWrap').style.display = 'none';
+
+            const grad = ctx.createLinearGradient(0, 0, 700, 700);
+            if (type === 'social') {
+                grad.addColorStop(0, '#ff7e5f');
+                grad.addColorStop(0.6, '#feb47b');
+                grad.addColorStop(1, '#19162b');
+            } else if (type === 'business') {
+                grad.addColorStop(0, '#ff0844');
+                grad.addColorStop(1, '#00b4db');
+            } else if (type === 'logo') {
+                grad.addColorStop(0, '#0f172a');
+                grad.addColorStop(1, '#1e1b4b');
+            } else {
+                grad.addColorStop(0, '#11998e');
+                grad.addColorStop(1, '#38ef7d');
+            }
+
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 700, 700);
+
+            ctx.fillStyle = 'rgba(255,255,255,0.92)';
+            ctx.font = 'bold 46px Vazirmatn, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Abdulbasit Editor', 350, 340);
+
+            ctx.font = '28px Vazirmatn, sans-serif';
+            ctx.fillStyle = 'rgba(255,255,255,0.75)';
+            ctx.fillText('ستۆدیۆی دیزاینی وێنە و ڤیدیۆ بە AI', 350, 400);
+        }
+
+        drawStarterTemplate();
+
+        function loadTemplate(type) {
+            showScreen('editorScreen');
+            drawStarterTemplate(type);
+            notify('✨ قاڵبەکە کرایەوە بۆ دەستکاری');
+        }
+
+        function openEditorWithMode(mode) {
+            showScreen('editorScreen');
+            if (mode === 'video') {
+                document.getElementById('videoTimelineWrap').style.display = 'block';
+                notify('🎬 بەشی مۆنتاژی ڤیدیۆ چالاک کرا');
+            } else {
+                document.getElementById('videoTimelineWrap').style.display = 'none';
+                notify('🖼️ ستۆدیۆی دەستکاری وێنە کرایەوە');
+            }
+        }
+
+        function openTool(toolName) {
+            showScreen('editorScreen');
+            const panelText = document.getElementById('panelText');
+            panelText.style.display = (toolName === 'text') ? 'block' : 'none';
+            if (toolName === 'crop') {
+                canvas.width = 700;
+                canvas.height = 500;
+                renderCanvas();
+                notify('✂️ فۆرماتی بڕین چالاک کرا');
+            } else if (toolName === 'sticker') {
+                addSticker('✨');
+            } else {
+                notify('🛠️ ئامرازەکە ئامادەیە');
+            }
+        }
+
+        filePicker.addEventListener('change', (e) => {
+            const file = e.target.files[0];
             if (!file) return;
+            const url = URL.createObjectURL(file);
+            showScreen('editorScreen');
 
-            previewContainer.innerHTML = '';
-            const fileURL = URL.createObjectURL(file);
-
-            if (file.type.startsWith('image/')) {
-                const img = document.createElement('img');
-                img.src = fileURL;
-                previewContainer.appendChild(img);
-            } else if (file.type.startsWith('video/')) {
-                const video = document.createElement('video');
-                video.src = fileURL;
-                video.controls = true;
-                previewContainer.appendChild(video);
+            if (file.type.startsWith('video/')) {
+                isVideoMode = true;
+                canvas.style.display = 'none';
+                videoEl.src = url;
+                videoEl.style.display = 'block';
+                document.getElementById('videoTimelineWrap').style.display = 'block';
+                notify('🎬 ڤیدیۆکە بارکرا بۆ مۆنتاژ');
+            } else {
+                isVideoMode = false;
+                videoEl.style.display = 'none';
+                videoEl.pause();
+                canvas.style.display = 'block';
+                document.getElementById('videoTimelineWrap').style.display = 'none';
+                baseImage.onload = () => {
+                    canvas.width = baseImage.naturalWidth || 700;
+                    canvas.height = baseImage.naturalHeight || 700;
+                    renderCanvas();
+                    notify('🖼️ وێنەکەت ئامادەیە بۆ دەستکاری');
+                };
+                baseImage.src = url;
             }
         });
 
-        function triggerAction(name) {
-            alert('ئامرازی (' + name + ') بە سەرکەوتوویی چالاک کرا!');
+        function renderCanvas(forceOrig = false) {
+            const b = document.getElementById('sBright').value;
+            const c = document.getElementById('sContrast').value;
+            const s = document.getElementById('sSat').value;
+            const filterStr = forceOrig ? 'none' : `brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
+
+            if (isVideoMode) {
+                videoEl.style.filter = filterStr;
+                return;
+            }
+
+            ctx.save();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.filter = filterStr;
+
+            if (baseImage.src) {
+                ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+            } else {
+                drawStarterTemplate();
+            }
+            ctx.restore();
+
+            // Draw Custom Kurdish Text
+            const txt = document.getElementById('canvasTextInput').value.trim();
+            if (txt && !forceOrig) {
+                const color = document.getElementById('canvasTextColor').value;
+                const fSize = Math.max(32, Math.floor(canvas.width * 0.055));
+                ctx.font = `800 ${fSize}px Vazirmatn, sans-serif`;
+                ctx.fillStyle = color;
+                ctx.textAlign = 'center';
+                ctx.shadowColor = 'rgba(0,0,0,0.7)';
+                ctx.shadowBlur = 12;
+                ctx.fillText(txt, canvas.width / 2, canvas.height - (fSize * 1.4));
+            }
+
+            // Draw Sticker
+            if (currentSticker && !forceOrig) {
+                const sSize = Math.max(55, Math.floor(canvas.width * 0.1));
+                ctx.font = `${sSize}px sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.fillText(currentSticker, canvas.width / 2, canvas.height * 0.22);
+            }
+        }
+
+        function applyQuickFilter(preset) {
+            const b = document.getElementById('sBright');
+            const c = document.getElementById('sContrast');
+            const s = document.getElementById('sSat');
+
+            if (preset === 'normal') { b.value = 100; c.value = 100; s.value = 100; }
+            if (preset === 'hdr') { b.value = 108; c.value = 128; s.value = 135; }
+            if (preset === 'warm') { b.value = 106; c.value = 115; s.value = 145; }
+            if (preset === 'cyber') { b.value = 105; c.value = 135; s.value = 175; }
+            if (preset === 'bw') { b.value = 105; c.value = 130; s.value = 0; }
+            if (preset === 'cinema') { b.value = 95; c.value = 125; s.value = 120; }
+
+            renderCanvas();
+            notify('✨ فلتەرەکە جێبەجێ کرا');
+        }
+
+        function toggleTextPanel() {
+            const p = document.getElementById('panelText');
+            p.style.display = (p.style.display === 'none') ? 'block' : 'none';
+        }
+
+        function addSticker(emoji) {
+            currentSticker = emoji;
+            renderCanvas();
+            notify('😊 ستیکەر زیاد کرا');
+        }
+
+        function rotateImage() {
+            rotationAngle = (rotationAngle + 90) % 360;
+            canvas.style.transform = `rotate(${rotationAngle}deg)`;
+        }
+
+        function previewOriginal(orig) {
+            renderCanvas(orig);
+        }
+
+        function resetCanvas() {
+            document.getElementById('sBright').value = 100;
+            document.getElementById('sContrast').value = 100;
+            document.getElementById('sSat').value = 100;
+            document.getElementById('canvasTextInput').value = '';
+            currentSticker = '';
+            rotationAngle = 0;
+            canvas.style.transform = 'none';
+            renderCanvas();
+            notify('↺ گەڕێندرایەوە دۆخی سەرەتا');
+        }
+
+        function setVideoSpeed(rate) {
+            videoEl.playbackRate = rate;
+            notify(`⚡ خێرایی ڤیدیۆ کرا بە ${rate}x`);
+        }
+
+        // AI Image Generator Functions (100% Free & Keyless)
+        function setPrompt(txt) {
+            document.getElementById('aiPrompt').value = txt;
+        }
+
+        function generateAIImage() {
+            const prompt = document.getElementById('aiPrompt').value.trim() || 'Vibrant digital art masterpiece, 8k';
+            notify('⏳ خەریکی دروستکردنی وێنەیە بە AI...');
+            const encoded = encodeURIComponent(prompt);
+            const seed = Math.floor(Math.random() * 99999);
+            const url = `https://image.pollinations.ai/prompt/${encoded}?width=720&height=720&seed=${seed}&nologo=true`;
+            const imgEl = document.getElementById('aiResultImg');
+            imgEl.onload = () => notify('🎉 وێنەکە بە سەرکەوتوویی دروست کرا!');
+            imgEl.src = url;
+        }
+
+        function sendAIToEditor() {
+            const aiImg = document.getElementById('aiResultImg');
+            baseImage.src = aiImg.src;
+            baseImage.onload = () => {
+                showScreen('editorScreen');
+                renderCanvas();
+                notify('✨ وێنەی AI گواسترایەوە بۆ بەشی دەستکاری');
+            };
+        }
+
+        function downloadEditedMedia() {
+            const link = document.createElement('a');
+            link.download = `Abdulbasit-Editor-${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            notify('✅ وێنەکە بە کوالێتی بەرز پاشەکەوت کرا!');
         }
     </script>
 </body>
